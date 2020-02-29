@@ -1,17 +1,14 @@
-package com.yamari.idddd.domain.models.Users;
+package com.yamari.idddd.domain.models.users;
 
 import java.util.Objects;
+import java.util.UUID;
 
 public class User {
 	public UserId id;
 	public UserName name;
 		
-	public User(UserId id, UserName name) {
-		if (id == null) {
-			throw new IllegalArgumentException("id‚Í•K‚¸“ü—Í‚µ‚Ä‚­‚¾‚³‚¢B");
-		}
-		
-		this.id = id;
+	public User(UserName name) {
+		this.id = new UserId(UUID.randomUUID().toString());		
 		this.changeName(name);
 	}
 		

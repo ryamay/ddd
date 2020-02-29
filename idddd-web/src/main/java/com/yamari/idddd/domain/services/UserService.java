@@ -1,11 +1,12 @@
-package com.yamari.idddd.domain.Services;
+package com.yamari.idddd.domain.services;
 
-import com.yamari.idddd.domain.models.Users.User;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import com.yamari.idddd.domain.models.users.User;
 
 public class UserService {
 	

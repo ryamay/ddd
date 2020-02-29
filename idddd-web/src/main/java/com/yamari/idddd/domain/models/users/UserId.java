@@ -1,6 +1,6 @@
-package com.yamari.idddd.domain.models.Users;
+package com.yamari.idddd.domain.models.users;
 
-class UserId {
+public class UserId {
 	private String value;
 	
 	public UserId(String value) {
@@ -8,5 +8,10 @@ class UserId {
 			throw new IllegalArgumentException("ユーザIDは必ず入力してください。");
 		}
 		this.value = value;
+	}
+
+	public String getValue()
+	{
+		return value;
 	}
 }

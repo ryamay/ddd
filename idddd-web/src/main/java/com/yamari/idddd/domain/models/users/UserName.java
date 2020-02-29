@@ -1,4 +1,4 @@
-package com.yamari.idddd.domain.models.Users;
+package com.yamari.idddd.domain.models.users;
 
 public class UserName {
 	private String value;
