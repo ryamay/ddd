@@ -2,9 +2,9 @@ package com.yamari.idddd.domain.models.Users;
 
 import java.util.Objects;
 
-class User {
-	private UserId id;
-	private UserName name;
+public class User {
+	public UserId id;
+	public UserName name;
 		
 	public User(UserId id, UserName name) {
 		if (id == null) {

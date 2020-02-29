@@ -1,6 +1,6 @@
 package com.yamari.idddd.domain.models.Users;
 
-class UserName {
+public class UserName {
 	private String value;
 	
 	public UserName(String value) {
@@ -11,5 +11,9 @@ class UserName {
 			throw new IllegalArgumentException("ÉÜÅ[ÉUñºÇÕ3ï∂éöà»è„Ç≈Ç∑ÅB");			
 		}
 		this.value = value;
+	}
+	
+	public String getValue() {
+		return value;
 	}
 }
