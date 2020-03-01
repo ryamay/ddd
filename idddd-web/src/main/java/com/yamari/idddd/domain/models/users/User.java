@@ -12,6 +12,15 @@ public class User {
 		this.changeName(name);
 	}
 		
+	public User(UserId id, UserName name) {
+		if(id == null) {
+			throw new IllegalArgumentException("idは必ず入力してください。");
+		}
+		
+		this.id =id;
+		this.changeName(name);
+	}
+	
 	public void changeName(UserName name) {
 		if (name == null) {
 			throw new IllegalArgumentException("nameは必ず入力してください。");
