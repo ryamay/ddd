@@ -4,7 +4,8 @@ public class UserId {
 	private String value;
 	
 	public UserId(String value) {
-		if (value == null) {
+		
+		if (value == null || value.length() == 0) {
 			throw new IllegalArgumentException("ユーザIDは必ず入力してください。");
 		}
 		this.value = value;
