@@ -27,6 +27,11 @@ public class InMemoryUserRepository implements IUserRepository
 			.orElse(null);
 	}
 	
+	@Override
+	public void delete(User user)	{
+		store.remove(user.id, user);
+	}
+	
 	private User clone(User user) {
 		return new User(user.id, user.name);
 	}

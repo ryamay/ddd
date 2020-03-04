@@ -52,7 +52,7 @@ public class PostgreUserRepository implements IUserRepository
 				} else {
 					return null;
 				}
-			}		
+			}
 		} catch (SQLException e) {			
 			System.out.println(e.getErrorCode());
 			System.out.println(e.getSQLState());
@@ -60,5 +60,20 @@ public class PostgreUserRepository implements IUserRepository
 		}
 		//ê⁄ë±ÉGÉâÅ[éû
 		return null;
+	}
+	
+	@Override
+	public void delete(User user){
+		String deleteUserSQL = "DELETE FROM users WHERE id=?;";
+		
+		try(Connection conn = DriverManager.getConnection(url, dbUser, password);
+			PreparedStatement ps =  conn.prepareStatement(deleteUserSQL);) {
+			ps.setString(1, user.id.getValue());
+			ps.executeUpdate();		
+		} catch (SQLException e) {			
+			System.out.println(e.getErrorCode());
+			System.out.println(e.getSQLState());
+			System.out.println(e.getMessage());
+		}
 	}
 }
