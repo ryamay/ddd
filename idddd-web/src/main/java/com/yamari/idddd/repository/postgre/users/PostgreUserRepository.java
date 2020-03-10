@@ -17,7 +17,6 @@ public class PostgreUserRepository implements IUserRepository
 	private final String dbUser = "postgres";
 	private final String password = "mysecretpassword1234";
 	
-	
 	@Override
 	public void save(User user)	{
 		String saveUserSQL = "INSERT INTO users VALUES (?, ?)"
@@ -38,8 +37,23 @@ public class PostgreUserRepository implements IUserRepository
 	}
 	
 	@Override
+	public void delete(User user){
+		String deleteUserSQL = "DELETE FROM users WHERE id=?;";
+		
+		try(Connection conn = DriverManager.getConnection(url, dbUser, password);
+			PreparedStatement ps =  conn.prepareStatement(deleteUserSQL);) {
+			ps.setString(1, user.id.getValue());
+			ps.executeUpdate();		
+		} catch (SQLException e) {			
+			System.out.println(e.getErrorCode());
+			System.out.println(e.getSQLState());
+			System.out.println(e.getMessage());
+		}
+	}
+	
+	@Override
 	public User find(UserName name)	{
-		String findUserSQL = "SELECT FROM users WHERE id=?;";
+		String findUserSQL = "SELECT FROM users WHERE name=?;";
 		
 		try(Connection conn = DriverManager.getConnection(url, dbUser, password);
 			PreparedStatement ps =  conn.prepareStatement(findUserSQL);) {
@@ -63,17 +77,27 @@ public class PostgreUserRepository implements IUserRepository
 	}
 	
 	@Override
-	public void delete(User user){
-		String deleteUserSQL = "DELETE FROM users WHERE id=?;";
+	public User find(UserId id)	{
+		String findUserSQL = "SELECT FROM users WHERE id=?;";
 		
 		try(Connection conn = DriverManager.getConnection(url, dbUser, password);
-			PreparedStatement ps =  conn.prepareStatement(deleteUserSQL);) {
-			ps.setString(1, user.id.getValue());
-			ps.executeUpdate();		
+			PreparedStatement ps =  conn.prepareStatement(findUserSQL);) {
+			ps.setString(1, id.getValue());
+			try(ResultSet rs = ps.executeQuery()){
+				if (rs.next()) {
+					String userId = rs.getString("id");
+					String userName = rs.getString("name");
+					return new User(new UserId(userId), new UserName(userName));
+				} else {
+					return null;
+				}
+			}
 		} catch (SQLException e) {			
 			System.out.println(e.getErrorCode());
 			System.out.println(e.getSQLState());
 			System.out.println(e.getMessage());
 		}
+		//ê⁄ë±ÉGÉâÅ[éû
+		return null;
 	}
 }

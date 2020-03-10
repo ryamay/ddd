@@ -20,18 +20,26 @@ public class InMemoryUserRepository implements IUserRepository
 	}
 
 	@Override
+	public void delete(User user)	{
+		store.remove(user.id, user);
+	}
+	
+	@Override
 	public User find(UserName name){
 		return store.values().stream()
 			.filter((i -> name.equals(i.name)))
 			.findFirst()
 			.orElse(null);
 	}
-	
+
 	@Override
-	public void delete(User user)	{
-		store.remove(user.id, user);
+	public User find(UserId id)
+	{
+		return store.values().stream()
+			.filter((i -> id.equals(i.id)))
+			.findFirst()
+			.orElse(null);
 	}
-	
 	private User clone(User user) {
 		return new User(user.id, user.name);
 	}
