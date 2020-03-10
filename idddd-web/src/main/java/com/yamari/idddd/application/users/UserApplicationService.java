@@ -32,6 +32,7 @@ public class UserApplicationService {
 
     // 外部にドメインオブジェクトを公開しないよう、
     // DTOに詰め替えてreturnする。
-    return new UserData(user.id.getValue(), user.name.getValue());
+    // userのプロパティが増減しても対応可能。
+    return (user == null) ? null : new UserData(user);
   }
 }
