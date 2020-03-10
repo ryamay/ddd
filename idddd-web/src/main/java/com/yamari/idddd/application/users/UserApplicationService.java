@@ -16,7 +16,7 @@ public class UserApplicationService {
     this.userService = userService;
   }
 
-  public void CreateUser(String userName) throws Exception {
+  public void register(String userName) throws Exception {
     User user = new User(new UserName(userName));
 
     if (userService.exists(user)) {
@@ -26,8 +26,12 @@ public class UserApplicationService {
     userRepository.save(user);
   }
 
-  public User get(String userId) {
+  public UserData get(String userId) {
     UserId targetId = new UserId(userId);
-    return userRepository.find(targetId);
+    User user = userRepository.find(targetId);
+
+    // 外部にドメインオブジェクトを公開しないよう、
+    // DTOに詰め替えてreturnする。
+    return new UserData(user.id.getValue(), user.name.getValue());
   }
 }
