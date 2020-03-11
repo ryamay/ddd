@@ -1,6 +1,7 @@
 package com.yamari.idddd.application.users;
 
 import com.yamari.idddd.domain.models.users.IUserRepository;
+import com.yamari.idddd.domain.models.users.MailAddress;
 import com.yamari.idddd.domain.models.users.User;
 import com.yamari.idddd.domain.models.users.UserId;
 import com.yamari.idddd.domain.models.users.UserName;
@@ -16,8 +17,9 @@ public class UserApplicationService {
     this.userService = userService;
   }
 
-  public void register(String userName) throws Exception {
-    User user = new User(new UserName(userName));
+  public void register(String userName, String mailAddress) throws Exception {
+    // TODO: User‚Ì•ÏX‚ªApplicationService‚É‰e‹¿‚µ‚È‚¢‚æ‚¤‚É‚µ‚½‚¢B
+    User user = new User(new UserName(userName), new MailAddress(mailAddress));
 
     if (userService.exists(user)) {
       throw new Exception(userName + "‚ÍŠù‚É‘¶İ‚µ‚Ä‚¢‚Ü‚·B");

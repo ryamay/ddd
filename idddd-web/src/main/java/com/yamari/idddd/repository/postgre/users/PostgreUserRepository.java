@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import com.yamari.idddd.domain.models.users.IUserRepository;
+import com.yamari.idddd.domain.models.users.MailAddress;
 import com.yamari.idddd.domain.models.users.User;
 import com.yamari.idddd.domain.models.users.UserId;
 import com.yamari.idddd.domain.models.users.UserName;
@@ -59,7 +60,9 @@ public class PostgreUserRepository implements IUserRepository {
         if (rs.next()) {
           String userId = rs.getString("id");
           String userName = rs.getString("name");
-          return new User(new UserId(userId), new UserName(userName));
+          String mailAddress = rs.getString("mail_address");
+
+          return new User(new UserId(userId), new UserName(userName), new MailAddress(mailAddress));
         } else {
           return null;
         }
@@ -84,7 +87,9 @@ public class PostgreUserRepository implements IUserRepository {
         if (rs.next()) {
           String userId = rs.getString("id");
           String userName = rs.getString("name");
-          return new User(new UserId(userId), new UserName(userName));
+          String mailAddress = rs.getString("mail_address");
+
+          return new User(new UserId(userId), new UserName(userName), new MailAddress(mailAddress));
         } else {
           return null;
         }

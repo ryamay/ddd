@@ -33,6 +33,6 @@ public class InMemoryUserRepository implements IUserRepository {
   }
 
   private User clone(User user) {
-    return new User(user.id, user.name);
+    return new User(user.id, user.name, user.mailAddress);
   }
 }
