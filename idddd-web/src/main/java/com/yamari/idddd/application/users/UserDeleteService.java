@@ -12,14 +12,15 @@ public class UserDeleteService {
     this.userRepository = userRepository;
   }
 
-  public UserData get(String userId) {
-    UserId targetId = new UserId(userId);
+  public void delete(UserDeleteCommand command) {
+    UserId targetId = new UserId(command.getId());
     User user = userRepository.find(targetId);
 
-    // 外部にドメインオブジェクトを公開しないよう、
-    // DTOに詰め替えてreturnする。
-    // userのプロパティが増減しても対応可能。
-    // TODO:指定したユーザが存在しない場合、UserNotFoundExceptionをthrowする。
-    return (user == null) ? null : new UserData(user);
+    if (user == null) {
+      // 削除対象のユーザが見つからない場合は退会成功とする
+      return;
+    }
+
+    userRepository.delete(user);
   }
 }

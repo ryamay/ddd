@@ -12,14 +12,17 @@ public class UserGetInfoService {
     this.userRepository = userRepository;
   }
 
-  public UserData get(String userId) {
-    UserId targetId = new UserId(userId);
+  public UserData get(UserGetCommand command) throws UserNotFoundException {
+    UserId targetId = new UserId(command.getId());
     User user = userRepository.find(targetId);
+
+    if (user == null) {
+      throw new UserNotFoundException(targetId);
+    }
 
     // 外部にドメインオブジェクトを公開しないよう、
     // DTOに詰め替えてreturnする。
     // userのプロパティが増減しても対応可能。
-    // TODO:指定したユーザが存在しない場合、UserNotFoundExceptionをthrowする。
-    return (user == null) ? null : new UserData(user);
+    return new UserData(user);
   }
 }
