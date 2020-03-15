@@ -4,7 +4,7 @@ import java.util.regex.Pattern;
 
 public class MailAddress {
   private static final Pattern emailPattern =
-      Pattern.compile("/^[a-zA-Z0-9.!#$%&'*+\\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$/");
+      Pattern.compile("^[a-zA-Z0-9.!#$%&'*+\\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$");
   private String value;
 
   public MailAddress(String value) {

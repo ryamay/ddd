@@ -4,7 +4,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class User {
-  public UserId id;
+  public final UserId id;
   public UserName name;
   public MailAddress mailAddress;
 
@@ -56,6 +56,6 @@ public class User {
     }
 
     User other = (User) obj;
-    return Objects.equals(id, other.id);
+    return Objects.equals(id.getValue(), other.id.getValue());
   }
 }
