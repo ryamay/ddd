@@ -3,7 +3,7 @@ package com.yamari.idddd.application.users;
 public class UserUpdateCommand {
 
 
-  public UserUpdateCommand(String id, String name, String mailAddress) {
+  public UserUpdateCommand(String id) {
     this.id = id;
   }
 
