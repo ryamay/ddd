@@ -12,7 +12,7 @@ public class UserGetInfoService {
     this.userRepository = userRepository;
   }
 
-  public UserData get(UserGetCommand command) throws UserNotFoundException {
+  public UserData handle(UserGetCommand command) throws UserNotFoundException {
     UserId targetId = new UserId(command.getId());
     User user = userRepository.find(targetId);
 

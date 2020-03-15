@@ -17,7 +17,7 @@ public class UserUpdateInfoService {
     this.userService = userService;
   }
 
-  public void update(UserUpdateCommand command)
+  public void handle(UserUpdateCommand command)
       throws UserNotFoundException, CannotResisterUserException {
     UserId targetId = new UserId(command.id);
     User user = userRepository.find(targetId);

@@ -16,7 +16,7 @@ public class UserRegisterService {
     this.userService = userService;
   }
 
-  public void register(UserRegisterCommand command) throws CannotResisterUserException {
+  public void handle(UserRegisterCommand command) throws CannotResisterUserException {
     User user =
         new User(new UserName(command.getName()), new MailAddress(command.getMailAddress()));
 

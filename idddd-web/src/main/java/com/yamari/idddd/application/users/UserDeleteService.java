@@ -12,7 +12,7 @@ public class UserDeleteService {
     this.userRepository = userRepository;
   }
 
-  public void delete(UserDeleteCommand command) {
+  public void handle(UserDeleteCommand command) {
     UserId targetId = new UserId(command.getId());
     User user = userRepository.find(targetId);
 
