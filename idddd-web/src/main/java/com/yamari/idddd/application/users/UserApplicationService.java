@@ -62,6 +62,26 @@ public class UserApplicationService {
     // 外部にドメインオブジェクトを公開しないよう、
     // DTOに詰め替えてreturnする。
     // userのプロパティが増減しても対応可能。
+    // TODO:指定したユーザが存在しない場合、UserNotFoundExceptionをthrowする。
     return (user == null) ? null : new UserData(user);
   }
+
+  /**
+   * commandで指定したユーザを削除する。
+   *
+   * @param command 削除条件を指定するcommand
+   * @return 削除対象が見つからない場合は、退会成功と判断してreturnする。
+   */
+  public void delete(UserDeleteCommand command) {
+    UserId targetId = new UserId(command.getId());
+    User targetUser = userRepository.find(targetId);
+
+    if (targetUser == null) {
+      // 削除対象が見つからない場合は、退会成功としてreturnする
+      return;
+    }
+
+    userRepository.delete(targetUser);
+  }
+
 }
