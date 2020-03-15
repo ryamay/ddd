@@ -28,22 +28,28 @@ public class UserApplicationService {
     userRepository.save(user);
   }
 
-  public void update(String userId, String name, String mailAddress)
+  public void update(UserUpdateCommand command)
       throws UserNotFoundException, CannotResisterUserException {
-    UserId targetId = new UserId(userId);
+    UserId targetId = new UserId(command.id);
     User user = userRepository.find(targetId);
-
     if (user == null) {
       throw new UserNotFoundException(targetId);
     }
 
-    UserName targetName = new UserName(name);
-    user.changeName(targetName);
-    MailAddress targetMailAddress = new MailAddress(mailAddress);
-    user.changeMailAddress(targetMailAddress);
+    String name = command.name;
+    if (name != null) {
+      UserName targetName = new UserName(name);
+      user.changeName(targetName);
+      if (userService.exists(user)) {
+        throw new CannotResisterUserException(user, "ユーザはすでに存在しています。");
+      }
 
-    if (userService.exists(user)) {
-      throw new CannotResisterUserException(user, "ユーザはすでに存在しています。");
+    }
+
+    String mailAddress = command.mailAddress;
+    if (mailAddress != null) {
+      MailAddress targetMailAddress = new MailAddress(mailAddress);
+      user.changeMailAddress(targetMailAddress);
     }
 
     userRepository.save(user);
