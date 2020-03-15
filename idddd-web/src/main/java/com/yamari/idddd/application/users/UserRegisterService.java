@@ -16,9 +16,9 @@ public class UserRegisterService {
     this.userService = userService;
   }
 
-  public void register(String userName, String mailAddress) throws CannotResisterUserException {
-    // TODO: Userの変更がApplicationServiceに影響しないようにしたい。→UserRegisterCommandを作成する。
-    User user = new User(new UserName(userName), new MailAddress(mailAddress));
+  public void register(UserRegisterCommand command) throws CannotResisterUserException {
+    User user =
+        new User(new UserName(command.getName()), new MailAddress(command.getMailAddress()));
 
     if (userService.exists(user)) {
       throw new CannotResisterUserException(user, "ユーザは既に存在しています。");
