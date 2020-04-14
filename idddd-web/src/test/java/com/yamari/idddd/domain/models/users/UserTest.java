@@ -2,8 +2,7 @@ package com.yamari.idddd.domain.models.users;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import org.assertj.core.api.SoftAssertions;
 import org.junit.Test;
 
 public class UserTest {
@@ -74,25 +73,26 @@ public class UserTest {
 
   @Test
   public void testEquals() {
+    SoftAssertions softly = new SoftAssertions();
+
     UserName name = new UserName("test");
     MailAddress address = new MailAddress("test@example.com");
     User target = new User(name, address);
 
-    assertTrue(target.equals(target));
-    assertFalse(target.equals(null));
-    assertFalse(target.equals(address));
+    softly.assertThat(target.equals(target)).as("©g‚Æ”äŠr‚·‚é‚Ætrue").isTrue();
+    softly.assertThat(target.equals(null)).as("null‚Æ”äŠr‚·‚é‚Æfalse").isFalse();
+    softly.assertThat(target.equals(address)).as("‘¼ƒNƒ‰ƒX‚Æ”äŠr‚·‚é‚Æfalse").isFalse();
 
-    // “¯‚¶UserId‚Ìê‡‚Ítrue
     User sameIdUser = new User(new UserId(target.id.getValue()), new UserName("sameId"),
         new MailAddress("sameid@example.com"));
 
-    assertTrue(target.equals(sameIdUser));
+    softly.assertThat(target.equals(sameIdUser)).as("“¯‚¶UserId‚Ìê‡‚Ítrue").isTrue();
 
-    // ˆÙ‚È‚éUserId‚Ìê‡‚Ífalse
     User differentIdUser = new User(new UserId(target.id.getValue() + "diff"), new UserName("diff"),
         new MailAddress("diff@example.com"));
+    softly.assertThat(target.equals(differentIdUser)).as("ˆÙ‚È‚éUserId‚Ìê‡‚Ífalse").isFalse();
 
-    assertFalse(target.equals(differentIdUser));
+    softly.assertAll();
   }
 
 
