@@ -24,12 +24,14 @@ public class InMemoryUserRepository implements IUserRepository {
 
   @Override
   public User find(UserName name) {
-    return store.values().stream().filter((i -> name.equals(i.name))).findFirst().orElse(null);
+    return store.values().stream().filter((i -> name.getValue().equals(i.name.getValue())))
+        .findFirst().orElse(null);
   }
 
   @Override
   public User find(UserId id) {
-    return store.values().stream().filter((i -> id.equals(i.id))).findFirst().orElse(null);
+    return store.values().stream().filter((i -> id.getValue().equals(i.id.getValue()))).findFirst()
+        .orElse(null);
   }
 
   private User clone(User user) {
