@@ -1,5 +1,6 @@
 package com.yamari.idddd.domain.models.users;
 
+import java.util.Objects;
 import java.util.regex.Pattern;
 
 public class MailAddress {
@@ -21,4 +22,20 @@ public class MailAddress {
     return this.value;
   }
 
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    MailAddress that = (MailAddress) o;
+    return value.equals(that.value);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(value);
+  }
 }
