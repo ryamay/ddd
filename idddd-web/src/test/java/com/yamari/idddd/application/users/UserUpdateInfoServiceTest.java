@@ -1,5 +1,9 @@
 package com.yamari.idddd.application.users;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.Assert.fail;
+
 import com.yamari.idddd.domain.models.users.MailAddress;
 import com.yamari.idddd.domain.models.users.User;
 import com.yamari.idddd.domain.models.users.UserId;
@@ -9,17 +13,13 @@ import com.yamari.idddd.repository.inMemory.InMemoryUserRepository;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.fail;
-
 public class UserUpdateInfoServiceTest {
 
   public InMemoryUserRepository userRepository = new InMemoryUserRepository();
   public UserService userService = new UserService(userRepository);
 
   public UserUpdateInfoService targetService =
-          new UserUpdateInfoService(userRepository, userService);
+      new UserUpdateInfoService(userRepository, userService);
 
   private static final UserId EXISTS_ID = new UserId("000000");
   private static final UserName EXISTS_NAME = new UserName("exists");
@@ -56,7 +56,7 @@ public class UserUpdateInfoServiceTest {
     assertThat(userRepository.store.get(EXISTS_ID).id.getValue()).isEqualTo(EXISTS_ID.getValue());
     assertThat(userRepository.store.get(EXISTS_ID).name.getValue()).isEqualTo(updatedName);
     assertThat(userRepository.store.get(EXISTS_ID).mailAddress.getValue())
-            .isEqualTo(updatedAddress);
+        .isEqualTo(updatedAddress);
   }
 
   @Test
@@ -76,7 +76,7 @@ public class UserUpdateInfoServiceTest {
     assertThat(userRepository.store.get(EXISTS_ID).id.getValue()).isEqualTo(EXISTS_ID.getValue());
     assertThat(userRepository.store.get(EXISTS_ID).name.getValue()).isEqualTo(updatedName);
     assertThat(userRepository.store.get(EXISTS_ID).mailAddress.getValue())
-            .isEqualTo(EXISTS_ADDRESS.getValue());
+        .isEqualTo(EXISTS_ADDRESS.getValue());
   }
 
   @Test
@@ -95,9 +95,9 @@ public class UserUpdateInfoServiceTest {
 
     assertThat(userRepository.store.get(EXISTS_ID).id.getValue()).isEqualTo(EXISTS_ID.getValue());
     assertThat(userRepository.store.get(EXISTS_ID).name.getValue())
-            .isEqualTo(EXISTS_NAME.getValue());
+        .isEqualTo(EXISTS_NAME.getValue());
     assertThat(userRepository.store.get(EXISTS_ID).mailAddress.getValue())
-            .isEqualTo(updatedAddress);
+        .isEqualTo(updatedAddress);
   }
 
   @Test
@@ -112,8 +112,8 @@ public class UserUpdateInfoServiceTest {
     command.setName(updatedName);
 
     assertThatThrownBy(() -> targetService.handle(command))
-            .isInstanceOf(CannotResisterUserException.class)
-            .hasMessageContaining("ユーザはすでに存在しています。");
+        .isInstanceOf(CannotResisterUserException.class)
+        .hasMessageContaining("ユーザはすでに存在しています。");
   }
 
   @Test
@@ -126,7 +126,7 @@ public class UserUpdateInfoServiceTest {
     command.setMailAddress(updatedAddress);
 
     assertThatThrownBy(() -> targetService.handle(command))
-            .isInstanceOf(UserNotFoundException.class)
-            .hasMessageContaining("UserId:" + targetId + "のユーザが存在しませんでした。");
+        .isInstanceOf(UserNotFoundException.class)
+        .hasMessageContaining("UserId:" + targetId + "のユーザが存在しませんでした。");
   }
 }
