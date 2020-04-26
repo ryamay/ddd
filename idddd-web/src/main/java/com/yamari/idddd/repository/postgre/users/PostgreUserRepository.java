@@ -43,7 +43,7 @@ public class PostgreUserRepository implements IUserRepository {
             + "DO UPDATE SET name=?, mail_address=?;";
 
     try (Connection conn = DriverManager.getConnection(url, dbUser, password);
-        PreparedStatement ps = conn.prepareStatement(saveUserSQL);) {
+        PreparedStatement ps = conn.prepareStatement(saveUserSQL)) {
       ps.setString(1, user.id.getValue());
       ps.setString(2, user.name.getValue());
       ps.setString(3, user.mailAddress.getValue());
@@ -62,7 +62,7 @@ public class PostgreUserRepository implements IUserRepository {
     String deleteUserSQL = "DELETE FROM users WHERE id=?;";
 
     try (Connection conn = DriverManager.getConnection(url, dbUser, password);
-        PreparedStatement ps = conn.prepareStatement(deleteUserSQL);) {
+        PreparedStatement ps = conn.prepareStatement(deleteUserSQL)) {
       ps.setString(1, user.id.getValue());
       ps.executeUpdate();
     } catch (SQLException e) {
@@ -77,7 +77,7 @@ public class PostgreUserRepository implements IUserRepository {
     String findUserSQL = "SELECT * FROM users WHERE name=?;";
 
     try (Connection conn = DriverManager.getConnection(url, dbUser, password);
-        PreparedStatement ps = conn.prepareStatement(findUserSQL);) {
+        PreparedStatement ps = conn.prepareStatement(findUserSQL)) {
       ps.setString(1, name.getValue());
       try (ResultSet rs = ps.executeQuery()) {
         if (rs.next()) {
@@ -104,7 +104,7 @@ public class PostgreUserRepository implements IUserRepository {
     String findUserSQL = "SELECT * FROM users WHERE id=?;";
 
     try (Connection conn = DriverManager.getConnection(url, dbUser, password);
-        PreparedStatement ps = conn.prepareStatement(findUserSQL);) {
+        PreparedStatement ps = conn.prepareStatement(findUserSQL)) {
       ps.setString(1, id.getValue());
       try (ResultSet rs = ps.executeQuery()) {
         if (rs.next()) {

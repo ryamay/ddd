@@ -1,18 +1,11 @@
 package com.yamari.idddd.domain.models.users;
 
 import java.util.Objects;
-import java.util.UUID;
 
 public class User {
   public final UserId id;
   public UserName name;
   public MailAddress mailAddress;
-
-  public User(UserName name, MailAddress mailAddress) {
-    this.id = new UserId(UUID.randomUUID().toString());
-    this.changeName(name);
-    this.changeMailAddress(mailAddress);
-  }
 
   public User(UserId id, UserName name, MailAddress mailAddress) {
     if (id == null) {
