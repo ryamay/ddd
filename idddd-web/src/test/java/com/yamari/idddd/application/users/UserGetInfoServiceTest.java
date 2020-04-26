@@ -8,7 +8,7 @@ import com.yamari.idddd.domain.models.users.MailAddress;
 import com.yamari.idddd.domain.models.users.User;
 import com.yamari.idddd.domain.models.users.UserId;
 import com.yamari.idddd.domain.models.users.UserName;
-import com.yamari.idddd.repository.inMemory.InMemoryUserRepository;
+import com.yamari.idddd.repository.inMemory.users.InMemoryUserRepository;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -19,7 +19,6 @@ public class UserGetInfoServiceTest {
   private static final UserId EXISTS_ID = new UserId("000000");
   private static final UserName EXISTS_NAME = new UserName("exists");
   private static final MailAddress EXISTS_ADDRESS = new MailAddress("exists@example.com");
-
 
   @Before
   public void initializeRepository() {

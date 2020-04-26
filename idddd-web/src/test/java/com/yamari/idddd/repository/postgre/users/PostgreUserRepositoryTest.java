@@ -26,32 +26,6 @@ public class PostgreUserRepositoryTest {
   private PostgreUserRepository targetRepository = new PostgreUserRepository();
 
   /**
-   * usersテーブルの全レコード削除
-   */
-  private void truncateDb() {
-    try (Connection conn = DriverManager.getConnection(url, dbUser, password);
-        PreparedStatement ps = conn.prepareStatement("TRUNCATE users");) {
-      ps.execute();
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-  }
-
-  /**
-   * テスト時のレコードを挿入
-   */
-  private void insertDefaultUser() {
-    try (Connection conn = DriverManager.getConnection(url, dbUser, password);
-        PreparedStatement ps =
-            conn.prepareStatement(
-                "INSERT INTO users (id, name, mail_address) VALUES ('000000', 'exists', 'exists@example.com');");) {
-      ps.execute();
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-  }
-
-  /**
    * DB接続
    */
   @BeforeClass
@@ -72,8 +46,32 @@ public class PostgreUserRepositoryTest {
   }
 
   /**
-   * テスト時のDBレコードを設定
+   * usersテーブルの全レコード削除
    */
+  private void truncateDb() {
+    try (Connection conn = DriverManager.getConnection(url, dbUser, password);
+        PreparedStatement ps = conn.prepareStatement("TRUNCATE users")) {
+      ps.execute();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  /**
+   * テスト時のレコードを挿入
+   */
+  private void insertDefaultUser() {
+    try (Connection conn = DriverManager.getConnection(url, dbUser, password);
+        PreparedStatement ps =
+            conn.prepareStatement(
+                "INSERT INTO users (id, name, mail_address) VALUES ('000000', 'exists', 'exists@example.com');");) {
+      ps.execute();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  /** テスト時のDBレコードを設定 */
   @Before
   public void setDefaultUsers() {
     truncateDb();

@@ -2,6 +2,7 @@ package com.yamari.idddd.domain.models.users;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
 import org.junit.Test;
 
 public class UserIdTest {
@@ -17,18 +18,18 @@ public class UserIdTest {
   @Test
   public void testNewFailureNull() {
     String input = null;
-    assertThatThrownBy(() -> {
-      new UserId(input);
-    }).as("nullは許容しない").isInstanceOf(IllegalArgumentException.class)
+    assertThatThrownBy(() -> new UserId(input))
+        .as("nullは許容しない")
+        .isInstanceOf(IllegalArgumentException.class)
         .hasMessage("ユーザIDは必ず入力してください。");
   }
 
   @Test
   public void testNewFailureEmpty() {
     String input = "";
-    assertThatThrownBy(() -> {
-      new UserId(input);
-    }).as("空文字列は許容しない").isInstanceOf(IllegalArgumentException.class)
+    assertThatThrownBy(() -> new UserId(input))
+        .as("空文字列は許容しない")
+        .isInstanceOf(IllegalArgumentException.class)
         .hasMessage("ユーザIDは必ず入力してください。");
   }
 }

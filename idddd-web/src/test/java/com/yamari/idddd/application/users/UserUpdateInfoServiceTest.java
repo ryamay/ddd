@@ -9,7 +9,9 @@ import com.yamari.idddd.domain.models.users.User;
 import com.yamari.idddd.domain.models.users.UserId;
 import com.yamari.idddd.domain.models.users.UserName;
 import com.yamari.idddd.domain.services.UserService;
-import com.yamari.idddd.repository.inMemory.InMemoryUserRepository;
+import com.yamari.idddd.repository.inMemory.users.InMemoryUserFactory;
+import com.yamari.idddd.repository.inMemory.users.InMemoryUserRepository;
+import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -103,8 +105,14 @@ public class UserUpdateInfoServiceTest {
   @Test
   public void testUpdateNameToExistingUserName() {
     String targetName = "wantToUpdate";
-    User anotherUser = new User(new UserName(targetName), new MailAddress("test@example.com"));
-    userRepository.store.put(anotherUser.id, anotherUser);
+    try {
+      User anotherUser =
+          new InMemoryUserFactory()
+              .create(new UserName(targetName), new MailAddress("test@example.com"));
+      userRepository.store.put(anotherUser.id, anotherUser);
+    } catch (Exception e) {
+      Assertions.fail("アップデート対象ユーザの登録に失敗");
+    }
 
     String targetId = EXISTS_ID.getValue();
     UserUpdateCommand command = new UserUpdateCommand(targetId);
