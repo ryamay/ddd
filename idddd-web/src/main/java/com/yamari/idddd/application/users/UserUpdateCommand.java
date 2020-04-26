@@ -2,7 +2,6 @@ package com.yamari.idddd.application.users;
 
 public class UserUpdateCommand {
 
-
   public UserUpdateCommand(String id) {
     this.id = id;
   }
@@ -36,5 +35,4 @@ public class UserUpdateCommand {
   public void setMailAddress(String mailAddress) {
     this.mailAddress = mailAddress;
   }
-
 }

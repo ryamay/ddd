@@ -6,6 +6,7 @@ import com.yamari.idddd.domain.models.users.User;
 import com.yamari.idddd.domain.models.users.UserId;
 import com.yamari.idddd.domain.models.users.UserName;
 import com.yamari.idddd.domain.services.UserService;
+import org.springframework.transaction.annotation.Transactional;
 
 public class UserUpdateInfoService {
 
@@ -17,6 +18,7 @@ public class UserUpdateInfoService {
     this.userService = userService;
   }
 
+  @Transactional
   public void handle(UserUpdateCommand command)
       throws UserNotFoundException, CannotResisterUserException {
     UserId targetId = new UserId(command.id);
@@ -32,7 +34,6 @@ public class UserUpdateInfoService {
       if (userService.exists(user)) {
         throw new CannotResisterUserException(user, "ÉÜÅ[ÉUÇÕÇ∑Ç≈Ç…ë∂ç›ÇµÇƒÇ¢Ç‹Ç∑ÅB");
       }
-
     }
 
     String mailAddress = command.mailAddress;
